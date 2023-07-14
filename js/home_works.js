@@ -16,16 +16,105 @@ gmailCheck.addEventListener('click', () => {
     }
 })
 
-function moveBlock(position) {
-    const childBlock = document.querySelector(".child_block");
-    childBlock.style.left = position + "px";
+// function moveBlock(position) {
+//     const childBlock = document.querySelector(".child_block");
+//     childBlock.style.left = position + "px";
+//
+//
+//     if (position < 450) {
+//         setTimeout(function() {
+//             moveBlock(position + 10);
+//         },120);
+//     }
+// }
+//
+// moveBlock(0);
 
+const box = document.querySelector('.child_block');
 
-    if (position < 450) {
-        setTimeout(function() {
-            moveBlock(position + 10);
-        },120);
+let positionX = 0;
+let positionY = 0;
+
+const move = () => {
+    if (positionX < 448 && positionY === 0) {
+        positionX++;
+        box.style.left = `${positionX}px`;
+    } else if (positionX >= 448 && positionY < 448) {
+        positionY++;
+        box.style.top = `${positionY}px`;
+    } else if (positionX > 0 && positionY === 448) {
+        positionX--;
+        box.style.left = `${positionX}px`;
+    } else if (positionX === 0 && positionY > 0) {
+        positionY--;
+        box.style.top = `${positionY}px`;
     }
-}
+    setTimeout(move, 1)
+};
 
-moveBlock(0);
+move();
+
+
+// /////////////////// DZ 2 lesson /////////////////////////////////////////
+
+const minutesLabel = document.querySelector('#minutes');
+const secondsLabel = document.querySelector('#seconds');
+const millisecondsLabel = document.querySelector('#ml-seconds');
+
+const startButton = document.querySelector('#start');
+const stopButton = document.querySelector('#stop');
+const clearButton = document.querySelector('#reset');
+
+let totalMilliseconds = 0;
+let intervalId;
+
+stopButton.disabled = true;
+clearButton.disabled = true;
+
+const startCounter = () => {
+    startButton.disabled = true;
+    stopButton.disabled = false;
+    clearButton.disabled = true;
+
+    intervalId = setInterval(() => {
+        totalMilliseconds += 10; // Увеличиваем на 10 миллисекунд
+
+        const date = new Date(totalMilliseconds);
+
+        const milliseconds = date.getMilliseconds();
+        const seconds = date.getSeconds();
+        const minutes = date.getMinutes();
+
+        millisecondsLabel.textContent = pad(milliseconds, 2);
+        secondsLabel.textContent = pad(seconds, 2);
+        minutesLabel.textContent = pad(minutes, 2);
+    }, 10);
+};
+
+const stopCounter = () => {
+    startButton.disabled = true;
+    stopButton.disabled = true;
+    clearButton.disabled = false;
+
+    clearInterval(intervalId);
+};
+
+const clearCounter = () => {
+    totalMilliseconds = 0;
+    millisecondsLabel.textContent = pad(0, 2);
+    secondsLabel.textContent = pad(0, 2);
+    minutesLabel.textContent = pad(0, 2);
+    stopCounter();
+
+    startButton.disabled = false;
+    stopButton.disabled = true;
+    clearButton.disabled = true;
+};
+
+const pad = (value, length) => {
+    return value.toString().padStart(length, '0');
+};
+
+startButton.addEventListener('click', startCounter);
+stopButton.addEventListener('click', stopCounter);
+clearButton.addEventListener('click', clearCounter);
