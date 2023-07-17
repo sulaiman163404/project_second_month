@@ -62,6 +62,7 @@ const secondsLabel = document.querySelector('#seconds');
 const millisecondsLabel = document.querySelector('#ml-seconds');
 
 const startButton = document.querySelector('#start');
+const resumeButton = document.querySelector('#resume');
 const stopButton = document.querySelector('#stop');
 const clearButton = document.querySelector('#reset');
 
@@ -70,11 +71,13 @@ let intervalId;
 
 stopButton.disabled = true;
 clearButton.disabled = true;
+resumeButton.disabled = true;
 
 const startCounter = () => {
     startButton.disabled = true;
     stopButton.disabled = false;
-    clearButton.disabled = true;
+    resumeButton.disabled = true;
+    clearButton.disabled = false;
 
     intervalId = setInterval(() => {
         totalMilliseconds += 10; // Увеличиваем на 10 миллисекунд
@@ -94,9 +97,31 @@ const startCounter = () => {
 const stopCounter = () => {
     startButton.disabled = true;
     stopButton.disabled = true;
+    resumeButton.disabled = false;
     clearButton.disabled = false;
 
     clearInterval(intervalId);
+};
+
+const resumeCounter = () => {
+    startButton.disabled = true;
+    stopButton.disabled = false;
+    resumeButton.disabled = true;
+    clearButton.disabled = false;
+
+    intervalId = setInterval(() => {
+        totalMilliseconds += 10; // Увеличиваем на 10 миллисекунд
+
+        const date = new Date(totalMilliseconds);
+
+        const milliseconds = date.getMilliseconds();
+        const seconds = date.getSeconds();
+        const minutes = date.getMinutes();
+
+        millisecondsLabel.textContent = pad(milliseconds, 2);
+        secondsLabel.textContent = pad(seconds, 2);
+        minutesLabel.textContent = pad(minutes, 2);
+    }, 10);
 };
 
 const clearCounter = () => {
@@ -108,6 +133,7 @@ const clearCounter = () => {
 
     startButton.disabled = false;
     stopButton.disabled = true;
+    resumeButton.disabled = true;
     clearButton.disabled = true;
 };
 
@@ -117,4 +143,5 @@ const pad = (value, length) => {
 
 startButton.addEventListener('click', startCounter);
 stopButton.addEventListener('click', stopCounter);
+resumeButton.addEventListener('click', resumeCounter);
 clearButton.addEventListener('click', clearCounter);
