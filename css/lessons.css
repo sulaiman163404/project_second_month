@@ -2,7 +2,7 @@
 /* PHONE CHECKER */
 
 .phone_block {
-    background: black;
+    background: #e7edfa;
     padding: 100px 0;
 }
 
@@ -10,7 +10,7 @@
     margin-top: 50px;
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid orange;
+    border: 1px solid #140c40;
     height: 300px;
     border-radius: 20px;
     align-items: center;
@@ -30,13 +30,13 @@
 /* TAB SLIDER */
 
 .tab_slider {
-    background: black;
+    background: #e7edfa;
     padding: 100px 0;
 }
 
 .tab_content_block {
     width: 700px;
-    border: 1px solid orange;
+    border: 1px solid #140c40;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -48,7 +48,7 @@
 }
 
 .tab_content_block p {
-    color: white;
+    color: #323330;
     margin-top: 10px;
     text-align: justify;
 }
@@ -63,8 +63,8 @@
 .tab_content_item {
     padding: 10px;
     height: 30px;
-    color: white;
-    border: 1px solid orange;
+    color: #323330;
+    border: 1px solid #140c40;
     text-align: center;
     font-size: 20px;
     cursor: pointer;
@@ -73,10 +73,10 @@
 }
 
 .tab_content_item_active {
-    background: orange;
-    color: black;
+    background: #F0DB4F;
+    color: #323330;
     font-weight: 600;
-    border: 1px solid white;
+    border: 1px solid #140c40;
 }
 
 .tab_contents_block {
@@ -89,14 +89,14 @@
 /*------CARD SWITCHER------*/
 
 .card_switcher {
-    background-color: black;
+    background-color: #e7edfa;
     padding: 100px 0;
 }
 
 .card {
     width: 500px;
     height: 150px;
-    border: 1px solid #F79300;
+    border: 1px solid #140c40;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -111,7 +111,7 @@
 }
 
 .card span {
-    color: white;
+    color: #323330;
     font-size: 30px;
 }
 
