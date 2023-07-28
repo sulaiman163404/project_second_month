@@ -78,3 +78,44 @@ const autoSlider = (i = 0) => {
     }, 3000)
 }
 autoSlider()
+
+
+// ДЗ 6-го урока
+
+const card = document.querySelector('.card')
+const btnPrev = document.querySelector('#btn-prev')
+const btnNext = document.querySelector('#btn-next')
+
+let count = 1
+
+const getData = (id) => {
+    if (id >= 1 && id <= 200) {
+        fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+            .then(response => response.json())
+            .then(todo => {
+                card.innerHTML = `
+          <h4>${todo.title}</h4>
+          <span>${todo.id}</span>
+          <h4 style="color: ${todo.completed ? 'green' : 'red'}">${todo.completed}</h4>  
+        `})
+    }
+}
+
+btnNext.onclick = () => {
+    count++
+    getData(count)
+}
+
+btnPrev.onclick = () => {
+    if (count > 1) {
+        count--
+        getData(count)
+    }
+}
+
+getData(count)
+
+//////////////////////////////////////DZ6 task-2 ////////////////////////////////////
+fetch('https://jsonplaceholder.typicode.com/posts')
+    .then((response) => response.json())
+    .then((data) => console.log(data))

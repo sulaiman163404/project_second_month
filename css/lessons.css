@@ -95,8 +95,10 @@
 
 .card {
     width: 500px;
-    height: 150px;
+    height: 195px;
     border: 1px solid #140c40;
+    border-radius: 5px;
+    background: #e7edfa;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -105,13 +107,11 @@
     padding: 10px;
 }
 
-.card p {
-    color: #F79300;
-    font-size: 20px;
-}
 
 .card span {
-    color: #323330;
+    color: #F0DB4F;
+    -webkit-text-stroke-width: 0.4px;
+    -webkit-text-stroke-color: black;
     font-size: 30px;
 }
 
@@ -121,5 +121,8 @@
     align-items: center;
     justify-content: space-between;
 }
+
+
+
 
 
