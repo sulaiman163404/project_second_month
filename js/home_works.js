@@ -147,6 +147,53 @@ resumeButton.addEventListener('click', resumeCounter);
 clearButton.addEventListener('click', clearCounter);
 
 
+
+
+///////////// converter ////////////
+
+const som = document.querySelector('#som');
+const usd = document.querySelector('#usd');
+const eur = document.querySelector('#eur');
+
+
+const convert = (inputCurrency, targetCurrency1, targetCurrency2) => {
+    inputCurrency.oninput = () => {
+        const request = new XMLHttpRequest();
+        request.open('GET', '../currency.json');
+        request.setRequestHeader('Content-type', 'application/json');
+        request.send();
+
+        request.onload = () => {
+            const response = JSON.parse(request.response);
+            if (inputCurrency === som) {
+                targetCurrency1.value = (inputCurrency.value / response.usd).toFixed(2);
+                targetCurrency2.value = (inputCurrency.value / response.eur).toFixed(2);
+            } else if (inputCurrency === usd) {
+                targetCurrency1.value = (inputCurrency.value * response.usd).toFixed(2);
+                targetCurrency2.value = (inputCurrency.value * response.usd / response.eur).toFixed(2);
+            } else if (inputCurrency === eur) {
+                targetCurrency1.value = (inputCurrency.value * response.eur).toFixed(2);
+                targetCurrency2.value = (inputCurrency.value * response.eur / response.usd).toFixed(2);
+            }
+            inputCurrency.value === '' && (targetCurrency1.value = targetCurrency2.value = '');
+        };
+    };
+};
+
+convert(som, usd, eur);
+convert(usd, som, eur);
+convert(eur, som, usd);
+
+const clearConverter = document.querySelector('#reset-converter')
+clearConverter.addEventListener('click', () => {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((input) => {
+        input.value = '';
+    })
+})
+
+
+
 /////////////////////////weather//////////////////////////////
 
 const apiKey = '863242cfb2b1d357e6093d9a4df19a4b'
@@ -197,50 +244,3 @@ searchBox.addEventListener('keydown', (event) => {
 searchBtn.addEventListener('click', () => {
     checkWeather(searchBox.value)
 })
-
-
-///////////// converter ////////////
-
-const som = document.querySelector('#som');
-const usd = document.querySelector('#usd');
-const eur = document.querySelector('#eur');
-
-
-const convert = (inputCurrency, targetCurrency1, targetCurrency2) => {
-    inputCurrency.oninput = () => {
-        const request = new XMLHttpRequest();
-        request.open('GET', '../currency.json');
-        request.setRequestHeader('Content-type', 'application/json');
-        request.send();
-
-        request.onload = () => {
-            const response = JSON.parse(request.response);
-            if (inputCurrency === som) {
-                targetCurrency1.value = (inputCurrency.value / response.usd).toFixed(2);
-                targetCurrency2.value = (inputCurrency.value / response.eur).toFixed(2);
-            } else if (inputCurrency === usd) {
-                targetCurrency1.value = (inputCurrency.value * response.usd).toFixed(2);
-                targetCurrency2.value = (inputCurrency.value * response.usd / response.eur).toFixed(2);
-            } else if (inputCurrency === eur) {
-                targetCurrency1.value = (inputCurrency.value * response.eur).toFixed(2);
-                targetCurrency2.value = (inputCurrency.value * response.eur / response.usd).toFixed(2);
-            }
-            inputCurrency.value === '' && (targetCurrency1.value = targetCurrency2.value = '');
-        };
-    };
-};
-
-convert(som, usd, eur);
-convert(usd, som, eur);
-convert(eur, som, usd);
-
-const clearConverter = document.querySelector('#reset-converter')
-clearConverter.addEventListener('click', () => {
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach((input) => {
-        input.value = '';
-    })
-})
-
-
-
